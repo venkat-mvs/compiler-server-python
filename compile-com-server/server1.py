@@ -19,6 +19,15 @@ try:
 except:
 	print "failed import "
 
+"""
+	Author		: 	M.Venkat   sai
+	Last-Modified	:	28 sept 2018
+	release		:	alpha 0.0.1(still in development)
+	platform	:	linux
+	email		:	venkatsaimaragani@gmail.com
+	
+	note:all modules are standard for python27 except magic that is same directory and tasking made by myself
+"""
 class Serve:
 	host = ""
 	port = 8000

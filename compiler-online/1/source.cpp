@@ -1,8 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
 using namespace std;
-//GCC
+//g++ 5.4
 int main(){
 	//your code goes here
-    prin
 }

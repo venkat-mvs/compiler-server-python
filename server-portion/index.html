@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>	Compiler</title>
+	<title>	Online Compiler by Venkat </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="venkat-mvs"/>
@@ -38,9 +38,23 @@
 	width: 100%;
 	height: 100%;
 }
-input textarea{
+.input textarea{
 	width: inherit;
 }
+#submit{
+	background: blue;
+	color:white;
+	border-radius: 5px;
+	border: none;
+	width: 100px;
+	height:50px;
+	padding: 5px;
+	margin: 10px;
+}
+.row{
+	margin-left: -4px;
+}
+
 </style>
 <body>
 		<div class="row">
@@ -48,12 +62,12 @@ input textarea{
 			</div>
 			<div class="col-lg-6">
 				<div class="input row">
-						<strong style="color:blue">Sample Input please:</strong><br>
+					<p><strong style="color:blue;">Sample Input here:</strong></p>
 					<textarea name="input"  id="input"placeholder="your input"></textarea>
 				</div>
 				
 				<div class="output row">
-					<strong style="color:blue"> Output:<br/></strong>
+					<p><strong style="color:blue;"> Output:</strong></p>
 					<textarea id="output"wrap="hard" placeholder="your output will be here"readonly></textarea>
 				</div>
 			</div>

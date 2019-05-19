@@ -1,0 +1,4 @@
+compiler-online/1/source.cpp: In function ‘int main()’:
+compiler-online/1/source.cpp:7:5: error: ‘prin’ was not declared in this scope
+     prin
+     ^

@@ -4,5 +4,5 @@ using namespace std;
 //GCC
 int main(){
 	//your code goes here
-     cout<<"hello world";
+    prin
 }

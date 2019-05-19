@@ -13,48 +13,62 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css"rel="stylesheet"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/clike/clike.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <style>
-#output{
-	border: 2px solid black;
-	width: 60%;
+.output{
 	overflow-x: hidden;
-	padding-left: 10px;
+	width:100%;
+	height: 100%;
 }
-#input{
-	width: 60%;
-	height: 60%;
+.CodeMirror {
+  border: 1px solid #eee;
+  height: 90vh;
 }
-#code{
-	background: grey;
+.input textarea{
+	height:40vh;
+	width: 100%;
+}
+.output textarea{
+	height:40vh;
+	width:100%;
+}
+.input{
+	width: 100%;
+	height: 100%;
+}
+input textarea{
+	width: inherit;
 }
 </style>
 <body>
-<div name="code"id="code">
-</div>
-<script>
-var config = {
-        lineNumbers:true,
-		indentUnit:5,
-		lineWrapping:true,
-		mode:"text/x-c++src",
-        value:'#include<iostream>\n#include<stdlib.h>\nusing namespace std;\n//GCC\nint main(){\n\t//your code goes here\n}'
-}
-var editor = CodeMirror(document.getElementById("code"),config);
-</script>  
-<strong>Sample Input please:<br/></strong>
-<textarea name="input" rows = 10 cols =100 id="input">
-
-</textarea><br/><br/>
-<input type="submit" value="Run" id="submit"><br/><br />
-<div >
-	<strong>Output:<br/></strong>
-	   <textarea id="output" rows =10 wrap = "hard" readonly>
-
-	   </textarea>
-</div>
+		<div class="row">
+			<div name="code"id="code"class="code col-lg-6">
+			</div>
+			<div class="col-lg-6">
+				<div class="input row">
+						<strong style="color:blue">Sample Input please:</strong><br>
+					<textarea name="input"  id="input"placeholder="your input"></textarea>
+				</div>
+				
+				<div class="output row">
+					<strong style="color:blue"> Output:<br/></strong>
+					<textarea id="output"wrap="hard" placeholder="your output will be here"readonly></textarea>
+				</div>
+			</div>
+		</div>
+		<button id="submit">Run</button>
 <script>
 //$("button").on("click",function(){
+var config = {
+		lineNumbers:true,
+		indentUnit:4,
+		lineWrapping:true,
+		mode:"text/x-c++src",
+		value:'#include<iostream>\n#include<stdlib.h>\nusing namespace std;\n//g++ 5.4\nint main(){\n\t//your code goes here\n}'
+}
+var editor = CodeMirror(document.getElementById("code"),config);
 var output = ''
 $("#code").val();
 document.getElementById("submit").onclick = function(e){

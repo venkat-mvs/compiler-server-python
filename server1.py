@@ -29,7 +29,7 @@ Last-Modified: {}
 Server-name: python-socket-server
 
 {}"""
-	curdir = '.'
+	BASE_DIR = '.'
 
 	def __init__(self,host = "",port = 8000,directory = ''):
 		if host == "":
@@ -38,9 +38,9 @@ Server-name: python-socket-server
 		if port != 8000:
 			self.port = port 
 		if directory != '':
-			self.curdir = directory
+			self.BASE_DIR = directory
 		else:
-			self.curdir = "."
+			self.BASE_DIR = "."
 		self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		self.server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 		self.server.bind((self.host,self.port))
@@ -72,7 +72,7 @@ Server-name: python-socket-server
 		if method == "POST":
 			request_data = temp_req.split('\r\n\r\n')
 			# not working the json one
-			data = {"status":"500 Internal Server Error","Content-type":"test/txt","Last-Modified":"","response":"Internal Server Error"}
+			data = {"status":"500 Internal Server Error","Content-type":"text/txt","Last-Modified":"","response":"Internal Server Error"}
 			try:
 				data = self.post_response(request_data[-1])
 				#data["response"]= data
@@ -85,13 +85,13 @@ Server-name: python-socket-server
                         	#traceback.print_tb(tb)
 
 		if method == "GET":
-			data = {"status":"500 Internal Server Error","Content-type":"test/txt","Last-Modified":"","response":"Internal Server Error"}
+			data = {"status":"500 Internal Server Error","Content-type":"text/txt","Last-Modified":"","response":"Internal Server Error"}
 			try:
 				data = self.get_response(request["req"])
 				if platform.system() == 'Windows':
-					last_modified = os.path.getctime(self.curdir + request["req"])
+					last_modified = os.path.getctime(self.BASE_DIR + request["req"])
 				else:
-					last_modified = time.ctime(os.stat(self.curdir + request["req"]).st_mtime)
+					last_modified = time.ctime(os.stat(self.BASE_DIR + request["req"]).st_mtime)
 			except Exception as e:
 				print e
 				#ex_type, ex, tb = sys.exc_info() # debugging purpose
@@ -118,8 +118,8 @@ Server-name: python-socket-server
 		response = ''
 		# all files and directories should be on childs not parents
 		try:
-			if f == '/' or os.path.isdir(self.curdir+f):
-				ls = os.listdir(self.curdir)
+			if f == '/' or os.path.isdir(self.BASE_DIR+f):
+				ls = os.listdir(self.BASE_DIR)
 				hasthem = False
 				if 'index.html'  in ls: 
 					now = f+'/index.html'
@@ -128,16 +128,16 @@ Server-name: python-socket-server
 					now = f+'/home.html'
 					hasthem = True
 				else:
-					response = self.getlistdir(self.curdir+f,f)
+					response = self.getlistdir(self.BASE_DIR+f,f)
 					#mimetype = 'text/html'
 				if hasthem:
 					print now
-					f_ = open(self.curdir+"/"+now.lstrip('/'),'rb')
+					f_ = open(self.BASE_DIR+"/"+now.lstrip('/'),'rb')
 					response += f_.read()
 					f_.close()
 					#mimetype = "text/html"
 			else:
-				f_ = open(self.curdir+f,'rb')
+				f_ = open(self.BASE_DIR+f,'rb')
 				response += f_.read()
 				f_.close()
 			mimetype = magic.from_buffer(response,mime=True)

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>	Compiler</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="venkat-mvs"/>
+	<meta name="description" content="Compile,Run C Online "/>
+	<script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.css"rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/codemirror.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.46.0/mode/clike/clike.js"></script>
+</head>
+<style>
+#output{
+	border: 2px solid black;
+	width: 60%;
+	overflow-x: hidden;
+	padding-left: 10px;
+}
+#input{
+	width: 60%;
+	height: 60%;
+}
+#code{
+	background: grey;
+}
+</style>
+<body>
+<div name="code"id="code">
+</div>
+<script>
+var config = {
+        lineNumbers:true,
+		indentUnit:5,
+		lineWrapping:true,
+		mode:"text/x-c++src",
+        value:'#include<iostream>\n#include<stdlib.h>\nusing namespace std;\n//GCC\nint main(){\n\t//your code goes here\n}'
+}
+var editor = CodeMirror(document.getElementById("code"),config);
+</script>  
+<strong>Sample Input please:<br/></strong>
+<textarea name="input" rows = 10 cols =100 id="input">
+
+</textarea><br/><br/>
+<input type="submit" value="Run" id="submit"><br/><br />
+<div >
+	<strong>Output:<br/></strong>
+	   <textarea id="output" rows =10 wrap = "hard" readonly>
+
+	   </textarea>
+</div>
+<script>
+//$("button").on("click",function(){
+var output = ''
+$("#code").val();
+document.getElementById("submit").onclick = function(e){
+	var object =
+         {
+             code: editor.getValue(),
+             input: document.getElementById('input').value                
+         }
+    $('#output').val('loading.........');
+	var objectString = JSON.stringify(object);
+	$.ajax({
+        type: "POST",
+        url: window.location.href,
+        data:objectString ,
+        success: function (data){
+            console.log(data);
+            output=data;
+            $("#output").val(data.out);
+        },
+        error: function (data = "not here") {
+            console.log('Error');
+            console.log(data);
+            $("#output").val('Erro.\n\n\n\n'+data.responseText);
+        }
+        });
+}
+</script>
+</body>
+</html>
+
